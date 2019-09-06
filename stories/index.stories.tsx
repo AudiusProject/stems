@@ -4,7 +4,9 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { withSmartKnobs } from 'storybook-addon-smart-knobs'
 import { host } from 'storybook-host'
 
-import '../src/index.css'
+import '../src/assets/styles/colors.css'
+import '../src/assets/styles/fonts.css'
+import '../src/assets/styles/sizes.css'
 import Scrubber from '../src/Scrubber'
 
 storiesOf('Stems', module)
@@ -19,9 +21,8 @@ storiesOf('Stems', module)
   )
   .add('Scrubber', () =>
     <Scrubber
-      isPlaying={false}
-      isDisabled={false}
-      elapsedSeconds={20}
+      mediaKey='1'
+      elapsedSeconds={0}
       totalSeconds={100}
     />
   )

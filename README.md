@@ -1,11 +1,49 @@
-# stems
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/2731362/64272626-9c3b8800-cef4-11e9-973e-0e38a666ec46.png" alt="stems" width="340">
 
-> 
+  <p align="center">
+    An audio-forward React Component library built with ❤️ from the team <a href="https://audius.org">@Audius</a>.
+  </p>
+</p>
+
+<br/>
+<br/>
 
 [![NPM](https://img.shields.io/npm/v/stems.svg)](https://www.npmjs.com/package/stems) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save stems
+npm install --save @audius/stems
+```
+
+## Development
+
+Run storybook:
+
+```bash
+npm run storybook
+```
+
+Run the example app (docs site):
+
+```bash
+cd example
+npm start
+```
+
+Run local Stems against another repo:
+
+```bash
+git clone git@github.com:AudiusProject/stems.git
+# Create a system link
+npm link
+
+# You may need this line so React versons don't conflict
+# https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react
+# npm link <other repo>/node_modules/react
+
+npm start
+
+<other repo> npm link @audius/stems
 ```
