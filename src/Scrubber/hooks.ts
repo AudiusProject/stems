@@ -1,4 +1,5 @@
 import React, { useRef, useCallback, useEffect } from 'react'
+import { TimeData } from './types'
 
 /** Sets animation properties on the handle and track. */
 const animate = (
@@ -30,7 +31,7 @@ export const useAnimations = (
   const play = useCallback(() => {
     const timeRemaining = totalSeconds - elapsedSeconds
     animate(trackRef, handleRef, `transform ${timeRemaining}s linear`, 'translate(100%)')
-  }, [trackRef, handleRef, totalSeconds, elapsedSeconds])
+  }, [trackRef, handleRef, elapsedSeconds, totalSeconds])
 
   /**
    * Pauses the animation at the current position.
@@ -56,19 +57,17 @@ export const useAnimations = (
    * Handle window focus events so that the scrubber can repair itself
    * if/when the browser loses focus and kills animations.
    */
-  const onWindowFocusRef = useRef(null)
-  // Set an event listener on the `focus` event
+  const timeData = useRef<TimeData>(null)
+  timeData.current = { elapsedSeconds, totalSeconds }
+
+  const onWindowFocus = useCallback(() => {
+    setPercent(timeData.current.elapsedSeconds / timeData.current.totalSeconds)
+  }, [timeData, setPercent])
+
   useEffect(() => {
-    window.removeEventListener('focus', onWindowFocusRef.current)
-    onWindowFocusRef.current = () => {
-      setPercent(elapsedSeconds / totalSeconds)
-    }
-    window.addEventListener('focus', onWindowFocusRef.current)
-  }, [onWindowFocusRef, setPercent, elapsedSeconds, totalSeconds])
-  // Clean up any existing `focus` event listener
-  useEffect(() => {
-    return () => window.removeEventListener('focus', onWindowFocusRef.current)
-  }, [onWindowFocusRef])
+    window.addEventListener('focus', onWindowFocus)
+    return () => window.removeEventListener('focus', onWindowFocus)
+  }, [onWindowFocus])
 
   return { play, pause, setPercent }
 }
