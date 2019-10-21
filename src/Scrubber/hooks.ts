@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 
 /** Sets animation properties on the handle and track. */
 const animate = (
@@ -51,6 +51,24 @@ export const useAnimations = (
   const setPercent = useCallback((percentComplete: number) => {
     animate(trackRef, handleRef, 'none', `translate(${percentComplete * 100}%)`)
   }, [trackRef, handleRef])
+
+  /**
+   * Handle window focus events so that the scrubber can repair itself
+   * if/when the browser loses focus and kills animations.
+   */
+  const onWindowFocusRef = useRef(null)
+  // Set an event listener on the `focus` event
+  useEffect(() => {
+    window.removeEventListener('focus', onWindowFocusRef.current)
+    onWindowFocusRef.current = () => {
+      setPercent(elapsedSeconds / totalSeconds)
+    }
+    window.addEventListener('focus', onWindowFocusRef.current)
+  }, [onWindowFocusRef, setPercent, elapsedSeconds, totalSeconds])
+  // Clean up any existing `focus` event listener
+  useEffect(() => {
+    return () => window.removeEventListener('focus', onWindowFocusRef.current)
+  }, [onWindowFocusRef])
 
   return { play, pause, setPercent }
 }
