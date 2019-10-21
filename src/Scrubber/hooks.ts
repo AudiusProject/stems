@@ -59,15 +59,13 @@ export const useAnimations = (
    */
   const timeData = useRef<TimeData>(null)
   timeData.current = { elapsedSeconds, totalSeconds }
-
-  const onWindowFocus = useCallback(() => {
-    setPercent(timeData.current.elapsedSeconds / timeData.current.totalSeconds)
-  }, [timeData, setPercent])
-
   useEffect(() => {
+    const onWindowFocus = () => {
+      setPercent(timeData.current.elapsedSeconds / timeData.current.totalSeconds)
+    }
     window.addEventListener('focus', onWindowFocus)
     return () => window.removeEventListener('focus', onWindowFocus)
-  }, [onWindowFocus])
+  }, [timeData, setPercent])
 
   return { play, pause, setPercent }
 }
