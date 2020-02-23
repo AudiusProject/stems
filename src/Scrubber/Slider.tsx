@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useRef, CSSProperties } from 'react'
 import cn from 'classnames'
 
 import { useAnimations } from './hooks'
@@ -23,7 +23,8 @@ const Slider = ({
   elapsedSeconds,
   totalSeconds,
   onScrub,
-  onScrubRelease
+  onScrubRelease,
+  style
 }: ScrubberProps) => {
   const [previousmediaKey, setPreviousMediaKey] = useState('')
 
@@ -173,6 +174,35 @@ const Slider = ({
     }
   }, [mediaKey, previousmediaKey, setPreviousMediaKey, setPercent, elapsedSeconds, totalSeconds])
 
+  /* const getShowHandle = () => ((!style || style.showHandle === undefined) ? true : style.showHandle) */
+
+  const getRailStyle = () => {
+    let s: CSSProperties = {}
+    if (style && style.railUnlistenedColor) {
+      s.background = style.railUnlistenedColor
+    }
+    return s
+  }
+
+  const getTrackStyle = () => {
+    let s: CSSProperties = {}
+    if (style && style.railListenedColor) {
+      s.background = style.railListenedColor
+    }
+
+    if (style && style.railListenedColor) {
+      s.borderRadius = `var(--unit-half)`
+    }
+    return s
+  }
+
+  const getSliderStyle = () => {
+    if (style && style.sliderMargin) return { margin: style.sliderMargin }
+    return {}
+  }
+
+  console.log('LINKED!!!')
+
   return (
     <div
       className={cn(styles.slider, {
@@ -181,17 +211,19 @@ const Slider = ({
       })}
       onMouseDown={isDisabled ? () => {} : onMouseDown}
       onTouchStart={isDisabled ? () => {} : onTouchStart}
+      style={getSliderStyle()}
     >
-      <div ref={railRef} className={styles.rail}>
+      <div ref={railRef} className={styles.rail} style={getRailStyle()}>
         <div ref={trackRef} className={styles.trackWrapper}>
-          <div ref={trackRef} className={styles.track} />
+          <div ref={trackRef} className={styles.track} style={getTrackStyle()}/>
         </div>
       </div>
       <div ref={handleRef} className={styles.handleWrapper}>
-        <div ref={handleRef} className={styles.handle} />
+        <div ref={handleRef} className={cn(styles.handle, { [styles.hoverHandle]: !style.showHandle})} />
       </div>
     </div>
   )
 }
 
 export default Slider
+
