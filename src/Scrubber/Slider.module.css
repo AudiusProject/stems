@@ -41,6 +41,7 @@
   /** Fixes Safari bug where overflow doesn't work with border radius during animation */
   mask-image: -webkit-radial-gradient(white, black);
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transition: transform 0.18s ease-in-out;
 }
 
 .trackWrapper {
@@ -94,22 +95,24 @@
   border-radius: 50%;
   background: var(--slider-handle);
   box-shadow: 0 0 2px 0 rgba(133,129,153,0.5), 0 2px 5px -1px rgba(133,129,153,0.5);
-  transition: transform 0.18s ease-in-out;
-}
-
-.hoverHandle {
-    opacity: 0;
-    transition: opacity 0.25s ease-in-out;
-}
-
-.handle .hoverHandle:hover {
-    opacity: 1;
+  transition: transform 0.18s ease-in-out, opacity 0.18s ease-in-out;
+  opacity: 0;
+  transform: scale(0);
 }
 
 .slider.isMobile .handle {
   height: var(--unit-4);
   width: var(--unit-4);
   margin-left: var(--negative-unit-2);
+}
+
+.showHandle .handle, .slider:not(.showHandle):hover .handle {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.slider:not(.showHandle):hover .rail {
+  transform: scaleY(1.5);
 }
 
 .slider:not(.isDisabled):not(.isMobile):hover .handle {

@@ -174,10 +174,12 @@ const Slider = ({
     }
   }, [mediaKey, previousmediaKey, setPreviousMediaKey, setPercent, elapsedSeconds, totalSeconds])
 
-  /* const getShowHandle = () => ((!style || style.showHandle === undefined) ? true : style.showHandle) */
+  const getShowHandle = () => ((!style || style.showHandle === undefined)
+    ? true
+    : style.showHandle)
 
   const getRailStyle = () => {
-    let s: CSSProperties = {}
+    const s: CSSProperties = {}
     if (style && style.railUnlistenedColor) {
       s.background = style.railUnlistenedColor
     }
@@ -185,13 +187,13 @@ const Slider = ({
   }
 
   const getTrackStyle = () => {
-    let s: CSSProperties = {}
+    const s: CSSProperties = {}
     if (style && style.railListenedColor) {
       s.background = style.railListenedColor
     }
 
     if (style && style.railListenedColor) {
-      s.borderRadius = `var(--unit-half)`
+      s.borderRadius = 'var(--unit-half)'
     }
     return s
   }
@@ -201,13 +203,12 @@ const Slider = ({
     return {}
   }
 
-  console.log('LINKED!!!')
-
   return (
     <div
       className={cn(styles.slider, {
         [styles.isMobile]: isMobile,
-        [styles.isDisabled]: isDisabled
+        [styles.isDisabled]: isDisabled,
+        [styles.showHandle]: getShowHandle()
       })}
       onMouseDown={isDisabled ? () => {} : onMouseDown}
       onTouchStart={isDisabled ? () => {} : onTouchStart}
@@ -219,7 +220,7 @@ const Slider = ({
         </div>
       </div>
       <div ref={handleRef} className={styles.handleWrapper}>
-        <div ref={handleRef} className={cn(styles.handle, { [styles.hoverHandle]: !style.showHandle})} />
+        <div ref={handleRef} className={styles.handle} />
       </div>
     </div>
   )
