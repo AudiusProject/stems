@@ -111,7 +111,7 @@
   transform: scale(1);
 }
 
-.slider:not(.showHandle):hover .rail {
+.slider:not(.isDisabled).slider:not(.showHandle):hover .rail {
   transform: scaleY(1.5);
 }
 
