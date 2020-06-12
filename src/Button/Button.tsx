@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, memo } from 'react'
 import cn from 'classnames'
 
 import ButtonProps, { Type, Size, defaultButtonProps } from './types'
@@ -43,7 +43,9 @@ const Button = ({
       const match = window.matchMedia(`(max-width: ${widthToHideText}px)`)
       hideText(match)
       match.addListener(hideText)
+      return () => match.removeListener(hideText)
     }
+    return () => {}
   }, [widthToHideText, hideText])
 
   const renderLeftIcon = () => leftIcon && (
@@ -101,4 +103,4 @@ const Button = ({
 
 Button.defaultProps = defaultButtonProps
 
-export default Button
+export default memo(Button)
