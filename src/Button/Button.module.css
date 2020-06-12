@@ -145,7 +145,7 @@
 
 .secondary .textLabel {
   color: var(--primary);
-  font-size: var(--font-s);
+  font-size: var(--font-l);
   font-weight: var(--font-bold);
 }
 

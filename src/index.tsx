@@ -2,6 +2,7 @@ export * from './Icons'
 
 export {
   default as Button,
+  ButtonProps,
   Type as ButtonType,
   Size as ButtonSize
 } from './Button'
