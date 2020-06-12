@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import cn from 'classnames'
 
 import ButtonProps, { Type, Size, defaultButtonProps } from './types'
@@ -13,27 +13,50 @@ const Button = ({
   rightIcon,
   isDisabled,
   includeHoverAnimations,
-  hideText,
+  widthToHideText,
+  minWidth,
   className,
   iconClassName,
-  textClassname,
+  textClassName,
+  name,
   onClick,
   onMouseEnter,
   onMouseLeave,
   onMouseUp,
   onMouseDown
 }: ButtonProps) => {
-  const leftIconElem = leftIcon && (
+  // Stores whether text should be hidden
+  const [textIsHidden, setTextIsHidden] = useState(false)
+
+  // Hides the text based on the matching of a `matchMedia` call
+  const hideText = useCallback((matcher) => {
+    if (matcher.matches) {
+      setTextIsHidden(true)
+    } else {
+      setTextIsHidden(false)
+    }
+  }, [setTextIsHidden])
+
+  // If `widthToHideText` is set, set up a media query listener
+  useEffect(() => {
+    if (widthToHideText) {
+      const match = window.matchMedia(`(max-width: ${widthToHideText}px)`)
+      hideText(match)
+      match.addListener(hideText)
+    }
+  }, [widthToHideText, hideText])
+
+  const renderLeftIcon = () => leftIcon && (
     <span className={cn(iconClassName, styles.icon, styles.left, {
-      [styles.noText]: hideText
+      [styles.noText]: !text || textIsHidden
     })}>
       {leftIcon}
     </span>
   )
 
-  const rightIconElem = rightIcon && (
+  const renderRightIcon = () => rightIcon && (
     <span className={cn(iconClassName, styles.icon, styles.right, {
-      [styles.noText]: hideText
+      [styles.noText]: !text || textIsHidden
     })}>
       {rightIcon}
     </span>
@@ -41,8 +64,8 @@ const Button = ({
 
   return (
     <button
-      className={cn(styles.button, className, {
-        [styles.noIcon]: !leftIconElem && !rightIconElem,
+      className={cn(styles.button, {
+        [styles.noIcon]: !leftIcon && !rightIcon,
         [styles.isDisabled]: isDisabled,
         [styles.includeHoverAnimations]: includeHoverAnimations,
         [styles.medium]: size === Size.MEDIUM,
@@ -56,19 +79,22 @@ const Button = ({
         [styles.disabled]: type === Type.DISABLED,
         [styles.glass]: type === Type.GLASS,
         [styles.white]: type === Type.WHITE
-      })}
+      }, className)}
       onClick={isDisabled ? () => {} : onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onMouseUp={onMouseUp}
       onMouseDown={onMouseDown}
       name={name}
+      style={{
+        minWidth: minWidth && !!text && !textIsHidden ? `${minWidth}px` : 'unset'
+      }}
     >
-      {leftIconElem}
-      {!hideText && <span className={cn(textClassname, styles.textLabel)}>
+      {renderLeftIcon()}
+      {!!text && !textIsHidden && <span className={cn(styles.textLabel, textClassName)}>
         {text}
       </span>}
-      {rightIconElem}
+      {renderRightIcon()}
     </button>
   )
 }

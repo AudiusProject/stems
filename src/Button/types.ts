@@ -36,12 +36,12 @@ type ButtonProps = {
   /**
    * Optional icon element to include on the left side of the button
    */
-  leftIcon?: ReactNode | any
+  leftIcon?: ReactNode | JSX.Element
 
   /**
    * Optional icon element to include on the right side of the button
    */
-  rightIcon?: ReactNode
+  rightIcon?: ReactNode | JSX.Element
 
   /**
    * Whether or not the button is clickable
@@ -49,15 +49,22 @@ type ButtonProps = {
   isDisabled?: boolean
 
   /**
-   * Whether or not to hide the text
-   */
-  hideText?: boolean
-
-  /**
    * Whether or not to include animations on hover
    * Consider turning off animations in mobile-first experiences
    */
   includeHoverAnimations?: boolean
+
+  /**
+   * The max width at which text will still be shown
+   */
+  widthToHideText?: number
+
+  /**
+   * Optional min width
+   * Min width can be useful if the button is switching states and you want
+   * to keep a certain width while text length changes
+   */
+  minWidth?: number
 
   /**
    * Class name to apply to the outermost <button> element
@@ -72,7 +79,12 @@ type ButtonProps = {
   /**
    * Class name to apply to the text label
    */
-  textClassname?: string
+  textClassName?: string
+
+  /**
+   * HTML name attribute to apply to the button
+   */
+  name?: string
 
   /**
    * What happens when the button is clicked

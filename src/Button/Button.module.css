@@ -38,11 +38,11 @@
 }
 
 .button .icon svg {
-  width: var(--unit-4);
+  width: var(--unit-6);
 }
 
 .button .icon path {
-  /* fill: var(--neutral); */
+  fill: var(--neutral);
 }
 
 .button .icon.left {
@@ -145,7 +145,7 @@
 
 .secondary .textLabel {
   color: var(--primary);
-  font-size: var(--font-l);
+  font-size: var(--font-s);
   font-weight: var(--font-bold);
 }
 
@@ -327,10 +327,6 @@
 .disabled.includeHoverAnimations:active {
   transform: none;
   border: none;
-}
-
-.disabled .spinner :global(.ant-spin-dot i) {
-  background-color: var(--white);
 }
 
 /* White Button */
