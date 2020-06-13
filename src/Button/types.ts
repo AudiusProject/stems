@@ -21,7 +21,7 @@ type ButtonProps = {
   /**
    * The text of the button
    */
-  text: string | ReactNode
+  text: ReactNode
 
   /**
    * The type of the button
