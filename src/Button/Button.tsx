@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import cn from 'classnames'
 
 import ButtonProps, { Type, Size, defaultButtonProps } from './types'
@@ -109,4 +109,4 @@ const Button = ({
 
 Button.defaultProps = defaultButtonProps
 
-export default memo(Button)
+export default Button

@@ -23,7 +23,6 @@ storiesOf('Stems', module)
     })
   )
   .add('Button', () => <Button leftIcon={<IconPlay />} text='Click Me' />)
-  .add('Icon', () => <IconPlay />)
   .add('Scrubber', () => (
     <Scrubber mediaKey='1' elapsedSeconds={0} totalSeconds={100} />
   ))
