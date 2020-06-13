@@ -40,7 +40,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    '@typescript-eslint/no-unused-vars': ['error', { 'args': 'none' }], // We should turn this one on soon
+    '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-this-alias': 'off',
 
     'no-use-before-define': 'off',
