@@ -12,6 +12,7 @@ import useHotkeys from 'hooks/useHotKeys'
 import useClickOutside from 'hooks/useClickOutside'
 import useScrollLock from 'hooks/useScrollLock'
 
+const rootContainer = 'modalRootContainer'
 const rootId = 'modalRoot'
 const bgId = 'bgModal'
 
@@ -42,10 +43,12 @@ const useModalRoot = () => {
     if (el) {
       setModalRoot(el)
     } else {
+      const container = document.createElement('div')
+      container.id = rootContainer
       el = document.createElement('div')
       el.id = rootId
-
-      document.body.appendChild(el)
+      container.appendChild(el)
+      document.body.appendChild(container)
       setModalRoot(el)
     }
 
