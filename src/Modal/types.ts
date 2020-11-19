@@ -36,12 +36,6 @@ export type ModalProps = {
 
   allowScroll?: boolean
 
-  // Increments the scroll count for scrollLock
-  incrementScrollCount: () => void
-
-  // Decrements the scroll count for scrollLock
-  decrementScrollCount: () => void
-
   // Classnames
 
   wrapperClassName?: string

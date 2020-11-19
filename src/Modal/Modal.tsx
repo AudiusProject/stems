@@ -11,6 +11,7 @@ import { IconRemove } from 'Icons'
 import useHotkeys from 'hooks/useHotKeys'
 import useClickOutside from 'hooks/useClickOutside'
 import useScrollLock from 'hooks/useScrollLock'
+import { useModalScrollCount } from './hooks'
 
 const rootContainer = 'modalRootContainer'
 const rootId = 'modalRoot'
@@ -81,8 +82,6 @@ const Modal = ({
   titleClassName,
   subtitleClassName,
   headerContainerClassName,
-  incrementScrollCount,
-  decrementScrollCount,
   anchor = Anchor.CENTER,
   subtitle,
   verticalAnchorOffset = 0,
@@ -105,6 +104,7 @@ const Modal = ({
   const [modalRoot, bgModal] = useModalRoot(zIndex)
   const [isDestroyed, setIsDestroyed] = useState(isOpen)
 
+  const { incrementScrollCount, decrementScrollCount } = useModalScrollCount()
   useScrollLock(isDestroyed, incrementScrollCount, decrementScrollCount)
   useEffect(() => {
     if (isOpen) setIsDestroyed(true)
