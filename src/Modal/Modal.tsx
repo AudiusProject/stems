@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import uniqueId from 'lodash/uniqueId'
 
@@ -13,6 +13,7 @@ import useHotkeys from 'hooks/useHotKeys'
 import useClickOutside from 'hooks/useClickOutside'
 import useScrollLock from 'hooks/useScrollLock'
 import { useModalScrollCount } from './hooks'
+import findAncestor from 'utils/findAncestor'
 
 const rootContainer = 'modalRootContainer'
 const rootId = 'modalRoot'
@@ -103,7 +104,7 @@ const Modal = ({
   showDismissButton = false,
   zIndex
 }: ModalProps) => {
-  const [id] = useState(modalKey || uniqueId('modal-'))
+  const id = useMemo(() => modalKey || uniqueId('modal-'), [modalKey])
   const onTouchMove = useCallback(
     (e: any) => {
       !allowScroll && e.preventDefault()
@@ -162,11 +163,10 @@ const Modal = ({
     // dismiss it.
     (e: EventTarget) => {
       if (e instanceof HTMLElement) {
-        const isModalWrapper = e.classList.contains(wrapperClass)
-        const isThisModalWrapper = e.classList.contains(`${wrapperClass}-${id}`)
-        if (isModalWrapper && !isThisModalWrapper) {
-          return true
-        }
+        const modalElement = findAncestor(e, `.${wrapperClass}`)
+        const isModalWrapper = modalElement.classList.contains(wrapperClass)
+        const isThisModalWrapper = modalElement.classList.contains(`${wrapperClass}-${id}`)
+        return isModalWrapper && !isThisModalWrapper
       }
       return false
     }

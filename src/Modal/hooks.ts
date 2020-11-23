@@ -1,3 +1,4 @@
+import useGlobal from 'hooks/useGlobal'
 import { useCallback, useEffect, useState } from 'react'
 
 export const setOverflowHidden = () => {
@@ -16,18 +17,18 @@ export const setModalRootTop = () => {
 }
 
 export const useModalScrollCount = () => {
-  const [count, setCount] = useState(0)
+  const [getCount, setCount] = useGlobal('modal-scroll-count', 0)
   const [isOverflowHidden, setIsOverflowHidden] = useState(false)
   useEffect(() => {
-    if (!isOverflowHidden && count > 0) {
+    if (!isOverflowHidden && getCount() > 0) {
       setIsOverflowHidden(true)
       setOverflowHidden()
       setModalRootTop()
-    } else if (isOverflowHidden && count === 0) {
+    } else if (isOverflowHidden && getCount() === 0) {
       setIsOverflowHidden(false)
       removeOverflowHidden()
     }
-  }, [count, isOverflowHidden])
+  }, [getCount, isOverflowHidden])
 
   const incrementScrollCount = useCallback(() => setCount(count => count + 1), [
     setCount
