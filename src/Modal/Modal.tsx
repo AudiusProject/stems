@@ -164,6 +164,7 @@ const Modal = ({
     (e: EventTarget) => {
       if (e instanceof HTMLElement) {
         const modalElement = findAncestor(e, `.${wrapperClass}`)
+        if (!modalElement) return false
         const isModalWrapper = modalElement.classList.contains(wrapperClass)
         const isThisModalWrapper = modalElement.classList.contains(`${wrapperClass}-${id}`)
         return isModalWrapper && !isThisModalWrapper
