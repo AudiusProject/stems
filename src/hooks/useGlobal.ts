@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 declare global {
   interface Window {
     AudiusStems: any
@@ -20,7 +22,9 @@ const useGlobal = <T>(
   name: string,
   initialValue: T
 ): [() => T, (mutator: (cur: T) => void) => void] => {
-  window.AudiusStems[name] = initialValue
+  useEffect(() => {
+    window.AudiusStems[name] = initialValue
+  }, [name, initialValue])
 
   const getter = () => window.AudiusStems[name]
   const setter = (mutator: (cur: T) => void) => {

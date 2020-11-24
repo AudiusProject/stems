@@ -166,7 +166,9 @@ const Modal = ({
         const modalElement = findAncestor(e, `.${wrapperClass}`)
         if (!modalElement) return false
         const isModalWrapper = modalElement.classList.contains(wrapperClass)
-        const isThisModalWrapper = modalElement.classList.contains(`${wrapperClass}-${id}`)
+        const isThisModalWrapper = modalElement.classList.contains(
+          `${wrapperClass}-${id}`
+        )
         return isModalWrapper && !isThisModalWrapper
       }
       return false
