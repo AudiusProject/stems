@@ -40,6 +40,7 @@ export const useModalScrollCount = () => {
        * This guarantees that the getCount call will return
        * an updated number. Else, getCount() may non-deterministically
        * return 0 or 1 on cleanup of a final modal.
+       * NOTE: This should only be triggered on un-mount when not closed
        */
       setImmediate(() => {
         if (isOverflowHidden && getCount() === 0) {
