@@ -1,8 +1,3 @@
-:root {
-  --slider-handle: var(--white);
-  --slider-handle-shadow: 0 0 2px 0 rgba(133,129,153,0.5), 0 2px 5px -1px rgba(133,129,153,0.5);
-}
-
 .slider {
   width: 100%;
   position: relative;
@@ -21,7 +16,7 @@
 }
 
 /* Use a psuedo-element to "increase" the clickable area of the scrubber. */
-.slider:after {
+.slider.expandedTargets:after {
   position: absolute;
   opacity: 0;
   border-radius: var(--unit-half);;
@@ -93,8 +88,8 @@
   margin-left: var(--negative-unit);
   width: var(--unit-2);
   border-radius: 50%;
-  background: var(--slider-handle);
-  box-shadow: var(--slider-handle-shadow);
+  background: var(--white);
+  box-shadow: 0 0 2px 0 rgba(133,129,153,0.5), 0 2px 5px -1px rgba(133,129,153,0.5);
   transition: transform 0.18s ease-in-out, opacity 0.18s ease-in-out;
   opacity: 0;
   transform: scale(0);
