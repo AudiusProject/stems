@@ -85,5 +85,3 @@ export type ModalProps = {
    */
   contentHorizontalPadding?: number
 }
-
-export default ModalProps

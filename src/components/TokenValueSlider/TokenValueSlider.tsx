@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
+
 import cn from 'classnames'
-import styles from './TokenValueSlider.module.css'
+
 import { getBNPercentage } from 'utils/bnHelpers'
-import { ValueSliderProps } from './types'
+
+import styles from './TokenValueSlider.module.css'
+import { TokenValueSliderProps } from './types'
 
 const messages = {
   min: 'MIN',
@@ -10,7 +13,7 @@ const messages = {
   current: 'CURRENT'
 }
 
-const ValueSlider: React.FC<ValueSliderProps> = ({
+export const TokenValueSlider: React.FC<TokenValueSliderProps> = ({
   className,
   sliderClassName,
   sliderBarClassName,
@@ -22,7 +25,7 @@ const ValueSlider: React.FC<ValueSliderProps> = ({
   isIncrease,
   minWrapper: MinWrapper,
   maxWrapper: MaxWrapper
-}: ValueSliderProps) => {
+}: TokenValueSliderProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const maxValueRef = useRef<HTMLDivElement | null>(null)
   const minValueRef = useRef<HTMLDivElement | null>(null)
@@ -126,5 +129,3 @@ const ValueSlider: React.FC<ValueSliderProps> = ({
     </div>
   )
 }
-
-export default ValueSlider

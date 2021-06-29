@@ -17,7 +17,7 @@ export enum Size {
   MEDIUM = 'medium'
 }
 
-type ButtonProps = {
+export type ButtonProps = {
   /**
    * The text of the button
    */
@@ -107,5 +107,3 @@ export const defaultButtonProps = {
   onMouseUp: () => {},
   onMouseDown: () => {}
 }
-
-export default ButtonProps

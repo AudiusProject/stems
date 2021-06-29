@@ -4,9 +4,10 @@ import { Story } from '@storybook/react'
 
 import * as Icons from 'components/Icons'
 
-import Button from './Button'
+import { Button } from './Button'
 import ButtonProps from './types'
 
+console.log(Button.defaultProps)
 export default {
   component: Button,
   title: 'Components/Button',

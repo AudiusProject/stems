@@ -1,6 +1,6 @@
 import BN from 'bn.js'
 
-export type ValueSliderProps = {
+export type TokenValueSliderProps = {
   className?: string
   sliderClassName?: string
   sliderBarClassName?: string
@@ -13,5 +13,3 @@ export type ValueSliderProps = {
   minWrapper?: React.ComponentType<{ value: BN }>
   maxWrapper?: React.ComponentType<{ value: BN }>
 }
-
-export default ValueSliderProps

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
+
 import cn from 'classnames'
 import moment from 'moment'
 
-import Slider from './Slider'
-import ScrubberProps, { defaultScrubberProps } from './types'
 import styles from './Scrubber.module.css'
+import { Slider } from './Slider'
+import { ScrubberProps, defaultScrubberProps } from './types'
 
 const SECONDS_PER_MINUTE = 60
 const MINUTES_PER_HOUR = 60
@@ -25,7 +26,7 @@ const formatSeconds = (seconds: number) => {
 /**
  * Wraps the `<Slider />` component and provides timestamp indicators.
  */
-const Scrubber = ({
+export const Scrubber = ({
   mediaKey,
   isPlaying,
   isDisabled,
@@ -96,5 +97,3 @@ const Scrubber = ({
 }
 
 Scrubber.defaultProps = defaultScrubberProps
-
-export default Scrubber

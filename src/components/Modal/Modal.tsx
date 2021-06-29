@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
-import ReactDOM from 'react-dom'
-import uniqueId from 'lodash/uniqueId'
 
 import cn from 'classnames'
+import uniqueId from 'lodash/uniqueId'
+import ReactDOM from 'react-dom'
 import { animated, useTransition } from 'react-spring'
+
+import { IconRemove } from 'components/Icons'
+import { useClickOutside } from 'hooks/useClickOutside'
+import { useHotkeys } from 'hooks/useHotKeys'
+import { useScrollLock } from 'hooks/useScrollLock'
+import { findAncestor } from 'utils/findAncestor'
+
 import styles from './Modal.module.css'
-
-import { ModalProps, Anchor } from './types'
-
-import { IconRemove } from 'Icons'
-import useHotkeys from 'hooks/useHotKeys'
-import useClickOutside from 'hooks/useClickOutside'
-import useScrollLock from 'hooks/useScrollLock'
 import { useModalScrollCount } from './hooks'
-import findAncestor from 'utils/findAncestor'
+import { ModalProps, Anchor } from './types'
 
 const rootContainer = 'modalRootContainer'
 const rootId = 'modalRoot'
@@ -82,7 +82,7 @@ const useModalRoot = (id: string, zIndex?: number) => {
   return [modalRoot, modalBg]
 }
 
-const Modal = ({
+export const Modal = ({
   modalKey,
   children,
   onClose,
@@ -273,5 +273,3 @@ const Modal = ({
     </>
   )
 }
-
-export default Modal

@@ -1,9 +1,10 @@
 import React from 'react'
+
 import cn from 'classnames'
 
-import ButtonProps, { Type, Size, defaultButtonProps } from './types'
-import { useCollapsibleText } from './hooks'
 import styles from './Button.module.css'
+import { useCollapsibleText } from './hooks'
+import { ButtonProps, Type, Size, defaultButtonProps } from './types'
 
 const SIZE_STYLE_MAP = {
   [Size.TINY]: styles.tiny,
@@ -26,7 +27,7 @@ const TYPE_STYLE_MAP = {
  * A common Button component. Includes a few variants and options to
  * include and position icons.
  */
-const Button = ({
+export const Button = ({
   text,
   type,
   size,
@@ -108,5 +109,3 @@ const Button = ({
 }
 
 Button.defaultProps = defaultButtonProps
-
-export default Button

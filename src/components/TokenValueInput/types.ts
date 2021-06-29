@@ -17,5 +17,3 @@ export type TokenValueInputProps = {
   isNumeric?: boolean
   onChange?: (text: string) => void
 }
-
-export default TokenValueInputProps

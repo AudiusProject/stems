@@ -5,11 +5,12 @@ import React, {
   useRef,
   CSSProperties
 } from 'react'
+
 import cn from 'classnames'
 
-import { useAnimations } from './hooks'
-import ScrubberProps from './types'
 import styles from './Slider.module.css'
+import { useAnimations } from './hooks'
+import { ScrubberProps } from './types'
 
 /** Gets the X-position of a div. */
 const getXPosition = (element: HTMLDivElement) => {
@@ -21,7 +22,7 @@ const getXPosition = (element: HTMLDivElement) => {
  * A smooth scrubbable slider that relies on CSS animations rather
  * than progress ticks to achieve fluidity.
  */
-const Slider = ({
+export const Slider = ({
   mediaKey,
   isPlaying,
   isMobile,
@@ -277,5 +278,3 @@ const Slider = ({
     </div>
   )
 }
-
-export default Slider

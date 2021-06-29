@@ -1,2 +1,2 @@
-export { default } from './TokenValueSlider'
-export { default as TokenValueSliderProps } from './types'
+export { TokenValueSlider } from './TokenValueSlider'
+export { TokenValueSliderProps } from './types'

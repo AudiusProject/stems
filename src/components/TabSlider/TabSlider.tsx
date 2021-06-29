@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
+
 import cn from 'classnames'
 import { useSpring, animated } from 'react-spring'
 
@@ -8,7 +9,7 @@ import { TabSliderProps } from './types'
 // Note, offset is the inner padding of the container div
 const OFFSET = 3
 
-const TabSlider = (props: TabSliderProps) => {
+export const TabSlider = (props: TabSliderProps) => {
   const optionRefs = useRef<Array<React.MutableRefObject<HTMLElement>>>(
     props.options.map(() => React.createRef())
   )
@@ -114,5 +115,3 @@ const TabSlider = (props: TabSliderProps) => {
     </div>
   )
 }
-
-export default TabSlider

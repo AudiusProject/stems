@@ -1,2 +1,2 @@
-export { default } from './TokenValueInput'
-export { default as TokenValueInputProps, Format } from './types'
+export { TokenValueInput } from './TokenValueInput'
+export { TokenValueInputProps, Format } from './types'

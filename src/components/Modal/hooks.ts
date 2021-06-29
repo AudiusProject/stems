@@ -1,5 +1,6 @@
-import useGlobal from 'hooks/useGlobal'
 import { useCallback, useEffect, useState } from 'react'
+
+import { useGlobal } from 'hooks/useGlobal'
 
 export const setOverflowHidden = () => {
   document.body.setAttribute('style', 'overflow:hidden;')

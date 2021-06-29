@@ -1,4 +1,5 @@
 import React, { useRef, useCallback, useEffect } from 'react'
+
 import { TimeData } from './types'
 
 /** Sets animation properties on the handle and track. */

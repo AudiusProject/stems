@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react'
+
 import cn from 'classnames'
+
 import styles from './TokenValueInput.module.css'
 import { TokenValueInputProps, Format } from './types'
 
@@ -23,7 +25,7 @@ const formatValue = (value: string | undefined) => {
 }
 
 const inputPaddingRight = 16
-const TokenValueInput: React.FC<TokenValueInputProps> = ({
+export const TokenValueInput: React.FC<TokenValueInputProps> = ({
   className,
   labelClassName,
   inputClassName,
@@ -117,5 +119,3 @@ const TokenValueInput: React.FC<TokenValueInputProps> = ({
     </div>
   )
 }
-
-export default TokenValueInput

@@ -1,2 +1,2 @@
-export { default } from './TabSlider'
-export { default as TabSliderProps, Option } from './types'
+export { TabSlider } from './TabSlider'
+export { TabSliderProps, Option } from './types'

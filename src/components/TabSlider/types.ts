@@ -32,5 +32,3 @@ export type TabSliderProps = {
    */
   activeTextClassName?: string
 }
-
-export default TabSliderProps

@@ -1,4 +1,4 @@
-type ScrubberProps = {
+export type ScrubberProps = {
   /**
    * A unique identifier for the media being scrubbed.
    * Usually a "track id" suffices here. This property
@@ -92,5 +92,3 @@ export const defaultScrubberProps = {
   onScrub: () => {},
   onScrubRelease: () => {}
 }
-
-export default ScrubberProps

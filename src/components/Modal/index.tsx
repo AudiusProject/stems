@@ -1,2 +1,2 @@
-export { default } from './Modal'
-export { default as ModalProps, Anchor } from './types'
+export { Modal } from './Modal'
+export { ModalProps, Anchor } from './types'
