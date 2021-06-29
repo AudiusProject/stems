@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Story } from '@storybook/react'
 
-import * as Icons from '../Icons'
+import * as Icons from 'components/Icons'
 
 import Button from './Button'
 import ButtonProps from './types'
