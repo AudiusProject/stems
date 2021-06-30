@@ -1,4 +1,4 @@
-import Button from './'
+import { Button } from '.'
 
 describe('Button', () => {
   it('is truthy', () => {

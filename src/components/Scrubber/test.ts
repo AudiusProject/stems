@@ -1,4 +1,4 @@
-import Scrubber from './'
+import { Scrubber } from '.'
 
 describe('Scrubber', () => {
   it('is truthy', () => {

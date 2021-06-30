@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 import cn from 'classnames'
 
@@ -27,85 +27,91 @@ const TYPE_STYLE_MAP = {
  * A common Button component. Includes a few variants and options to
  * include and position icons.
  */
-export const Button = ({
-  text,
-  type,
-  size,
-  leftIcon,
-  rightIcon,
-  isDisabled,
-  includeHoverAnimations,
-  widthToHideText,
-  minWidth,
-  className,
-  iconClassName,
-  textClassName,
-  name,
-  onClick,
-  onMouseEnter,
-  onMouseLeave,
-  onMouseUp,
-  onMouseDown
-}: ButtonProps) => {
-  const { textIsHidden } = useCollapsibleText(widthToHideText)
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      text,
+      type,
+      size,
+      leftIcon,
+      rightIcon,
+      isDisabled,
+      includeHoverAnimations,
+      widthToHideText,
+      minWidth,
+      className,
+      iconClassName,
+      textClassName,
+      name,
+      onClick,
+      onMouseEnter,
+      onMouseLeave,
+      onMouseUp,
+      onMouseDown
+    }: ButtonProps,
+    ref
+  ) => {
+    const { textIsHidden } = useCollapsibleText(widthToHideText)
 
-  const renderLeftIcon = () =>
-    leftIcon && (
-      <span
-        className={cn(iconClassName, styles.icon, styles.left, {
-          [styles.noText]: !text || textIsHidden
-        })}
+    const renderLeftIcon = () =>
+      leftIcon && (
+        <span
+          className={cn(iconClassName, styles.icon, styles.left, {
+            [styles.noText]: !text || textIsHidden
+          })}
+        >
+          {leftIcon}
+        </span>
+      )
+
+    const renderRightIcon = () =>
+      rightIcon && (
+        <span
+          className={cn(iconClassName, styles.icon, styles.right, {
+            [styles.noText]: !text || textIsHidden
+          })}
+        >
+          {rightIcon}
+        </span>
+      )
+
+    const renderText = () =>
+      !!text &&
+      !textIsHidden && (
+        <span className={cn(styles.textLabel, textClassName)}>{text}</span>
+      )
+
+    return (
+      <button
+        className={cn(
+          styles.button,
+          SIZE_STYLE_MAP[size],
+          TYPE_STYLE_MAP[type],
+          {
+            [styles.noIcon]: !leftIcon && !rightIcon,
+            [styles.disabled]: isDisabled,
+            [styles.includeHoverAnimations]: includeHoverAnimations
+          },
+          className
+        )}
+        name={name}
+        onClick={isDisabled ? () => {} : onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onMouseUp={onMouseUp}
+        onMouseDown={onMouseDown}
+        ref={ref}
+        style={{
+          minWidth:
+            minWidth && !!text && !textIsHidden ? `${minWidth}px` : 'unset'
+        }}
       >
-        {leftIcon}
-      </span>
+        {renderLeftIcon()}
+        {renderText()}
+        {renderRightIcon()}
+      </button>
     )
-
-  const renderRightIcon = () =>
-    rightIcon && (
-      <span
-        className={cn(iconClassName, styles.icon, styles.right, {
-          [styles.noText]: !text || textIsHidden
-        })}
-      >
-        {rightIcon}
-      </span>
-    )
-
-  const renderText = () =>
-    !!text &&
-    !textIsHidden && (
-      <span className={cn(styles.textLabel, textClassName)}>{text}</span>
-    )
-
-  return (
-    <button
-      className={cn(
-        styles.button,
-        SIZE_STYLE_MAP[size],
-        TYPE_STYLE_MAP[type],
-        {
-          [styles.noIcon]: !leftIcon && !rightIcon,
-          [styles.disabled]: isDisabled,
-          [styles.includeHoverAnimations]: includeHoverAnimations
-        },
-        className
-      )}
-      onClick={isDisabled ? () => {} : onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onMouseUp={onMouseUp}
-      onMouseDown={onMouseDown}
-      name={name}
-      style={{
-        minWidth:
-          minWidth && !!text && !textIsHidden ? `${minWidth}px` : 'unset'
-      }}
-    >
-      {renderLeftIcon()}
-      {renderText()}
-      {renderRightIcon()}
-    </button>
-  )
-}
+  }
+)
 
 Button.defaultProps = defaultButtonProps

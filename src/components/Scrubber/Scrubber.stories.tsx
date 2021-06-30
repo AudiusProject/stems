@@ -2,8 +2,8 @@ import React from 'react'
 
 import { Story } from '@storybook/react'
 
-import Scrubber from './Scrubber'
-import ScrubberProps from './types'
+import { Scrubber } from './Scrubber'
+import { ScrubberProps } from './types'
 
 export default {
   component: Scrubber,
