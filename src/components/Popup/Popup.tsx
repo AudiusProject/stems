@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import cn from 'classnames'
 import ReactDOM from 'react-dom'
@@ -36,33 +36,31 @@ const getTransformOrigin = (position: Position) =>
  */
 const getComputedPosition = (
   position: Position,
-  rect: DOMRect,
+  anchorRect: DOMRect,
   wrapperRect: DOMRect
-) => {
-  if (!rect || !wrapperRect) return position
+): Position => {
+  if (!anchorRect || !wrapperRect) return position
   const windowWidth = window.innerWidth
   const windowHeight = window.innerHeight
 
-  const overflowRight = rect.x + wrapperRect.width > windowWidth
-  const overflowLeft = rect.x - wrapperRect.width < 0
-  const overflowBottom = rect.y + wrapperRect.height > windowHeight
-  const overflowTop = rect.y - wrapperRect.height < 0
+  const overflowRight = anchorRect.x + wrapperRect.width > windowWidth
+  const overflowLeft = anchorRect.x - wrapperRect.width < 0
+  const overflowBottom = anchorRect.y + wrapperRect.height > windowHeight
+  const overflowTop = anchorRect.y - wrapperRect.height < 0
 
-  return () => {
-    if (overflowRight) {
-      return position.replace('Right', 'Left')
-    }
-    if (overflowLeft) {
-      return position.replace('Left', 'Right')
-    }
-    if (overflowTop) {
-      return position.replace('top', 'bottom')
-    }
-    if (overflowBottom) {
-      return position.replace('bottom', 'top')
-    }
-    return position
+  if (overflowRight) {
+    return position.replace('Right', 'Left') as Position
   }
+  if (overflowLeft) {
+    return position.replace('Left', 'Right') as Position
+  }
+  if (overflowTop) {
+    return position.replace('top', 'bottom') as Position
+  }
+  if (overflowBottom) {
+    return position.replace('bottom', 'top') as Position
+  }
+  return position
 }
 
 /**
@@ -73,87 +71,76 @@ const getComputedPosition = (
  */
 export const Popup = ({
   anchorRef,
-  className,
-  wrapperClassName,
-  ignoreClickOutsideRef,
-  isVisible,
   animationDuration,
-  onClose,
-  onAfterClose,
-  title,
-  noHeader,
-  position = Position.BOTTOM_CENTER,
+  checkIfClickInside,
   children,
+  className,
+  isVisible,
+  onAfterClose,
+  onClose,
+  position = Position.BOTTOM_CENTER,
+  scrollParent,
+  showHeader,
+  title,
+  wrapperClassName,
   zIndex
 }: PopupProps) => {
-  const wrapper = useRef<HTMLDivElement>()
-  const placeholder = useRef<HTMLDivElement>()
+  const wrapperRef = useRef<HTMLDivElement>()
   const originalTopPosition = useRef<number>(0)
   const [computedPosition, setComputedPosition] = useState(position)
 
   useEffect(() => {
     if (isVisible) {
-      const rect = placeholder.current.getBoundingClientRect()
-      const wrapperRect = wrapper.current.getBoundingClientRect()
-      const computed = getComputedPosition(position, rect, wrapperRect)
+      const anchorRect = anchorRef.current.getBoundingClientRect()
+      const wrapperRect = wrapperRef.current.getBoundingClientRect()
+      const computed = getComputedPosition(position, anchorRect, wrapperRect)
       setComputedPosition(computed)
     }
-  }, [isVisible, setComputedPosition, position, placeholder, wrapper])
+  }, [isVisible, setComputedPosition, position, anchorRef, wrapperRef])
 
   // On visible, set the position
   useEffect(() => {
     if (isVisible) {
       // When the popup becomes visible, set the position based on the placeholder
-      const rect = placeholder.current.getBoundingClientRect()
-      const wrapperRect = wrapper.current.getBoundingClientRect()
+      const anchorRect = anchorRef.current.getBoundingClientRect()
+      const wrapperRect = wrapperRef.current.getBoundingClientRect()
 
-      let left
-      let top
-      if (!anchorRef) {
-        left = rect.x - wrapperRect.width / 2 + rect.width / 2
-        top = rect.y
-      } else {
-        const anchorRect = anchorRef.current.getBoundingClientRect()
-        switch (computedPosition) {
-          case 'topCenter':
-            top = rect.y - wrapperRect.height - anchorRect.height
-            left = rect.x - wrapperRect.width / 2 + anchorRect.width / 2
-            break
-          case 'topRight':
-            top = rect.y - wrapperRect.height - anchorRect.height
-            left = rect.x
-            break
-          case 'topLeft':
-            top = rect.y - wrapperRect.height - anchorRect.height
-            left = rect.x - wrapperRect.width + anchorRect.width
-            break
-          case 'bottomRight':
-            top = rect.y
-            left = rect.x + anchorRect.width
-            break
-          case 'bottomLeft':
-            top = rect.y
-            left = rect.x - wrapperRect.width + anchorRect.width
-            break
-          case 'bottomCenter':
-          default:
-            top = rect.y
-            left = rect.x - wrapperRect.width / 2 + anchorRect.width / 2
-        }
+      const positionMap = {
+        [Position.TOP_LEFT]: [
+          anchorRect.y - wrapperRect.height,
+          anchorRect.x - wrapperRect.width
+        ],
+        [Position.TOP_CENTER]: [
+          anchorRect.y - wrapperRect.height,
+          anchorRect.x - wrapperRect.width / 2 + anchorRect.width / 2
+        ],
+        [Position.TOP_RIGHT]: [
+          anchorRect.y - wrapperRect.height,
+          anchorRect.x + anchorRect.width
+        ],
+        [Position.BOTTOM_LEFT]: [
+          anchorRect.y + anchorRect.height,
+          anchorRect.x - wrapperRect.width
+        ],
+        [Position.BOTTOM_CENTER]: [
+          anchorRect.y + anchorRect.height,
+          anchorRect.x - wrapperRect.width / 2 + anchorRect.width / 2
+        ],
+        [Position.BOTTOM_RIGHT]: [
+          anchorRect.y + anchorRect.height,
+          anchorRect.x + anchorRect.width
+        ]
       }
-      wrapper.current.style.top = `${top}px`
-      wrapper.current.style.left = `${left}px`
+
+      const [top, left] =
+        positionMap[computedPosition] ?? positionMap[Position.BOTTOM_CENTER]
+
+      wrapperRef.current.style.top = `${top}px`
+      wrapperRef.current.style.left = `${left}px`
 
       originalTopPosition.current = top
     }
-  }, [
-    isVisible,
-    wrapper,
-    placeholder,
-    anchorRef,
-    computedPosition,
-    originalTopPosition
-  ])
+  }, [isVisible, wrapperRef, anchorRef, computedPosition, originalTopPosition])
 
   // Callback invoked on each scroll. Uses original top position to scroll with content.
   // Takes scrollParent to get the current scroll position as well as the intitial scroll position
@@ -161,17 +148,17 @@ export const Popup = ({
   const watchScroll = useCallback(
     (scrollParent, initialScrollPosition) => {
       const scrollTop = scrollParent.scrollTop
-      wrapper.current.style.top = `${
+      wrapperRef.current.style.top = `${
         originalTopPosition.current - scrollTop + initialScrollPosition
       }px`
     },
-    [wrapper, originalTopPosition]
+    [wrapperRef, originalTopPosition]
   )
 
   // Set up scroll listeners
   useEffect(() => {
-    if (isVisible && placeholder.current) {
-      const scrollParent = getScrollParent(placeholder.current)
+    if (isVisible && anchorRef.current) {
+      const scrollParent = getScrollParent(anchorRef.current)
       const initialScrollPosition = scrollParent.scrollTop
       const listener = () => watchScroll(scrollParent, initialScrollPosition)
       scrollParent.addEventListener('scroll', listener)
@@ -181,7 +168,7 @@ export const Popup = ({
     }
 
     return () => {}
-  }, [isVisible, watchScroll, placeholder])
+  }, [isVisible, watchScroll, anchorRef])
 
   const handleClose = useCallback(() => {
     onClose()
@@ -190,12 +177,7 @@ export const Popup = ({
     }, animationDuration)
   }, [onClose, onAfterClose, animationDuration])
 
-  const clickOutsideRef = useClickOutside(handleClose, target => {
-    if (target instanceof Element && ignoreClickOutsideRef) {
-      return ignoreClickOutsideRef.current.contains(target)
-    }
-    return false
-  })
+  const clickOutsideRef = useClickOutside(handleClose, checkIfClickInside)
 
   const transitions = useTransition(isVisible, null, {
     from: {
@@ -218,11 +200,10 @@ export const Popup = ({
 
   return (
     <>
-      <div ref={placeholder} className={cn(styles.placeholder, className)} />
       {/* Portal the popup out of the dom structure so that it has a separate stacking context */}
       {ReactDOM.createPortal(
         <div
-          ref={wrapper}
+          ref={wrapperRef}
           className={cn(styles.wrapper, wrapperClassName)}
           style={wrapperStyle}
         >
@@ -237,7 +218,7 @@ export const Popup = ({
                   transformOrigin: getTransformOrigin(computedPosition)
                 }}
               >
-                {!noHeader && (
+                {showHeader && (
                   <div className={styles.header}>
                     <IconRemove
                       className={styles.iconRemove}

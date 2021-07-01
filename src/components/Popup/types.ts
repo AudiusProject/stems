@@ -14,21 +14,22 @@ export type PopupProps = {
    * Duration of the animations in ms
    */
   animationDuration?: number
+  /**
+   * A function used to check if a click falls inside any div
+   * that should not close the popup. Clicks inside the menu itself
+   * are automatically considered inside
+   */
+  checkIfClickInside?: (target: EventTarget) => boolean
   children: React.ReactChildren | string
   className?: string
-  /**
-   * An optional ref to a container that, when a click happens inside
-   * will ignore the clickOutside logic
-   */
-  ignoreClickOutsideRef?: React.MutableRefObject<any>
   /**
    * Boolean representing whether the Popup is visible
    */
   isVisible: boolean
   /**
-   * Hide the header
+   * Show the header
    */
-  noHeader?: boolean
+  showHeader?: boolean
   /**
    * Fired when a close event is dispatched, but the animation is not necessarily finished
    */
@@ -42,7 +43,7 @@ export type PopupProps = {
    */
   position?: Position
   /**
-   * A title displayed at the top of the Popup
+   * A title displayed at the top of the Popup (only visible when the header is enabled)
    */
   title?: string
   /**

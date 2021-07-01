@@ -4,16 +4,16 @@
 
 .popup {
   background-color: var(--white);
-  border-radius: 8px;
+  border-radius: var(--unit-1);
   border: 1px solid var(--neutral-light-7);
   box-shadow: 0 16px 20px 0 var(--tile-shadow-1-alt);
-  padding: 8px;
+  padding: var(--unit-1);
   user-select: none;
 }
 
 .header {
   border: none;
-  margin-bottom: 8px;
+  margin-bottom: var(--unit-1);
   padding-bottom: 0;
   display: flex;
   align-items: center;
@@ -22,8 +22,8 @@
 
 .header:after {
   content: '';
-  width: 12px;
-  padding-right: 2px;
+  width: var(--unit-2);
+  padding-right: var(--unit-half);
 }
 
 .title {
@@ -36,10 +36,10 @@
 
 .iconRemove {
   cursor: pointer;
-  height: 24px;
-  width: 24px;
-  padding-left: 2px;
-  transition: all ease-in-out 0.07s;
+  height: var(--unit-6);
+  width: var(--unit-6);
+  padding-left: var(--unit-half);
+  transition: all var(--quick);
 }
 
 .iconRemove g path {

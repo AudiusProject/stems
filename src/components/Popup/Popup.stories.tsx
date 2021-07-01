@@ -21,12 +21,18 @@ const Template: Story<PopupProps> = args => {
       <Button
         text='Click me'
         ref={anchorRef}
-        onClick={() => setIsVisible(true)}
+        onClick={() => setIsVisible(!isVisible)}
       />
       <Popup
         {...args}
         anchorRef={anchorRef}
         isVisible={isVisible}
+        checkIfClickInside={(target: EventTarget) => {
+          if (target instanceof Element && anchorRef) {
+            return anchorRef.current.contains(target)
+          }
+          return false
+        }}
         onClose={() => setIsVisible(false)}
       >
         Popup content
@@ -50,6 +56,7 @@ const withHeaderProps: Omit<
   PopupProps,
   'children' | 'anchorRef' | 'isVisible'
 > = {
+  showHeader: true,
   title: 'My Title'
 }
 
