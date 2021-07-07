@@ -20,7 +20,7 @@ export type PopupProps = {
    * are automatically considered inside
    */
   checkIfClickInside?: (target: EventTarget) => boolean
-  children: React.ReactChildren | string
+  children: React.ReactChild
   className?: string
   /**
    * Boolean representing whether the Popup is visible

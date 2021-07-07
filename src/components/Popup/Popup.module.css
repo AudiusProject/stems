@@ -4,10 +4,10 @@
 
 .popup {
   background-color: var(--white);
-  border-radius: var(--unit-1);
+  border-radius: var(--unit-2);
   border: 1px solid var(--neutral-light-7);
   box-shadow: 0 16px 20px 0 var(--tile-shadow-1-alt);
-  padding: var(--unit-1);
+  padding: var(--unit-2);
   user-select: none;
 }
 

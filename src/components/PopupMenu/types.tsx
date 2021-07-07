@@ -1,4 +1,4 @@
-import { PopupProps } from 'components/Popup'
+import { PopupProps } from '../Popup'
 
 export type PopupMenuProps = {
   /**
@@ -19,7 +19,7 @@ export type PopupMenuProps = {
     anchorRef: React.MutableRefObject<any>,
     triggerPopup: () => void
   ) => React.ReactNode | Element
-} & Pick<PopupProps, 'checkIfClickInside' | 'position' | 'title' | 'zIndex'>
+} & Pick<PopupProps, 'position' | 'title' | 'zIndex'>
 
 export type PopupMenuItem = {
   /**

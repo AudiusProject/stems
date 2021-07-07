@@ -10,6 +10,7 @@ import { PopupMenuItem, PopupMenuProps } from './types'
  */
 export const PopupMenu = ({
   items,
+  onClose,
   position,
   renderTrigger,
   title,
@@ -30,6 +31,7 @@ export const PopupMenu = ({
       e.stopPropagation()
       item.onClick()
       setIsPopupVisible(false)
+      onClose?.()
     },
     [setIsPopupVisible]
   )
@@ -50,7 +52,7 @@ export const PopupMenu = ({
           return false
         }}
         isVisible={isPopupVisible}
-        noHeader={!title}
+        showHeader={Boolean(title)}
         onClose={handlePopupClose}
         position={position}
         title={title || ''}
@@ -68,7 +70,6 @@ export const PopupMenu = ({
             </div>
           ))}
         </div>
-        <></>
       </Popup>
     </div>
   )

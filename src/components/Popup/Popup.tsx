@@ -79,7 +79,6 @@ export const Popup = ({
   onAfterClose,
   onClose,
   position = Position.BOTTOM_CENTER,
-  scrollParent,
   showHeader,
   title,
   wrapperClassName,
