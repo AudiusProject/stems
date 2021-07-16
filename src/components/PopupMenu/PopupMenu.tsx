@@ -30,15 +30,15 @@ export const PopupMenu = ({
     (item: PopupMenuItem) => (e: React.MouseEvent) => {
       e.stopPropagation()
       item.onClick()
-      setIsPopupVisible(false)
-      onClose?.()
+      handlePopupClose()
     },
     [setIsPopupVisible]
   )
 
-  const handlePopupClose = useCallback(() => setIsPopupVisible(false), [
-    setIsPopupVisible
-  ])
+  const handlePopupClose = useCallback(() => {
+    setIsPopupVisible(false)
+    onClose?.()
+  }, [setIsPopupVisible])
 
   return (
     <div ref={clickInsideRef}>

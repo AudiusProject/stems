@@ -11,6 +11,10 @@ export enum Position {
 
 export type PopupProps = {
   /**
+   * A ref to the element whose position will be used to anchor the Popup
+   */
+  anchorRef: React.MutableRefObject<HTMLElement>
+  /**
    * Duration of the animations in ms
    */
   animationDuration?: number
@@ -33,7 +37,7 @@ export type PopupProps = {
   /**
    * Fired when a close event is dispatched, but the animation is not necessarily finished
    */
-  onClose?: () => void
+  onClose: () => void
   /**
    * Fired after the popup finishes closing
    */
@@ -46,10 +50,6 @@ export type PopupProps = {
    * A title displayed at the top of the Popup (only visible when the header is enabled)
    */
   title?: string
-  /**
-   * A ref to the element whose position will be used to anchor the Popup
-   */
-  anchorRef: React.MutableRefObject<HTMLElement>
   wrapperClassName?: string
   /**
    * An optional z-index to override the default of 10000
