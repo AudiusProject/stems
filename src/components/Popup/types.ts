@@ -19,7 +19,7 @@ export type PopupProps = {
    */
   animationDuration?: number
   /**
-   * A function used to check if a click falls inside any div
+   * A function used to check if a click falls inside any element
    * that should not close the popup. Clicks inside the menu itself
    * are automatically considered inside
    */
@@ -50,6 +50,10 @@ export type PopupProps = {
    * A title displayed at the top of the Popup (only visible when the header is enabled)
    */
   title?: string
+  /**
+   * An optional className to apply to the wrapper element.
+   * The wrapper element is used to absolutely position the popup on the page in relation to the anchor element
+   */
   wrapperClassName?: string
   /**
    * An optional z-index to override the default of 10000

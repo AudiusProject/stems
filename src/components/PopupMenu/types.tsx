@@ -5,7 +5,6 @@ export type PopupMenuProps = {
    * The items to display in the menu
    */
   items: PopupMenuItem[]
-
   /**
    * A callback triggered when the menu is closed
    */
