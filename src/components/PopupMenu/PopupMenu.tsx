@@ -1,5 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 
+import cn from 'classnames'
+
 import { Popup } from 'components/Popup'
 
 import styles from './PopupMenu.module.css'
@@ -61,11 +63,15 @@ export const PopupMenu = ({
         <div className={styles.menu}>
           {items.map((item, i) => (
             <div
-              key={`${item.text}_${i}`}
-              className={styles.item}
+              key={typeof item.text === 'string' ? `${item.text}_${i}` : i}
+              className={cn(styles.item, item.className)}
               onClick={handleMenuItemClick(item)}
             >
-              {item.icon && <div className={styles.icon}>{item.icon}</div>}
+              {item.icon && (
+                <div className={cn(styles.icon, item.iconClassName)}>
+                  {item.icon}
+                </div>
+              )}
               {item.text}
             </div>
           ))}

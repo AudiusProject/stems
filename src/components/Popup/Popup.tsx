@@ -84,14 +84,28 @@ export const Popup = ({
   wrapperClassName,
   zIndex
 }: PopupProps) => {
+  const handleClose = useCallback(() => {
+    onClose()
+    setTimeout(() => {
+      onAfterClose()
+    }, animationDuration)
+  }, [onClose, onAfterClose, animationDuration])
+
+  const popupRef: React.MutableRefObject<HTMLDivElement> = useClickOutside(
+    handleClose,
+    checkIfClickInside
+  )
+
   const wrapperRef = useRef<HTMLDivElement>()
   const originalTopPosition = useRef<number>(0)
   const [computedPosition, setComputedPosition] = useState(position)
 
+  const getRects = () =>
+    [anchorRef, wrapperRef].map(r => r.current.getBoundingClientRect())
+
   useEffect(() => {
     if (isVisible) {
-      const anchorRect = anchorRef.current.getBoundingClientRect()
-      const wrapperRect = wrapperRef.current.getBoundingClientRect()
+      const [anchorRect, wrapperRect] = getRects()
       const computed = getComputedPosition(position, anchorRect, wrapperRect)
       setComputedPosition(computed)
     }
@@ -100,9 +114,7 @@ export const Popup = ({
   // On visible, set the position
   useEffect(() => {
     if (isVisible) {
-      // When the popup becomes visible, set the position based on the placeholder
-      const anchorRect = anchorRef.current.getBoundingClientRect()
-      const wrapperRect = wrapperRef.current.getBoundingClientRect()
+      const [anchorRect, wrapperRect] = getRects()
 
       const positionMap = {
         [Position.TOP_LEFT]: [
@@ -169,15 +181,6 @@ export const Popup = ({
     return () => {}
   }, [isVisible, watchScroll, anchorRef])
 
-  const handleClose = useCallback(() => {
-    onClose()
-    setTimeout(() => {
-      onAfterClose()
-    }, animationDuration)
-  }, [onClose, onAfterClose, animationDuration])
-
-  const clickOutsideRef = useClickOutside(handleClose, checkIfClickInside)
-
   const transitions = useTransition(isVisible, null, {
     from: {
       transform: `scale(0)`,
@@ -210,7 +213,7 @@ export const Popup = ({
             item ? (
               <animated.div
                 className={cn(styles.popup, className)}
-                ref={clickOutsideRef}
+                ref={popupRef}
                 key={key}
                 style={{
                   ...props,

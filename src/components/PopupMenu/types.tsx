@@ -23,9 +23,13 @@ export type PopupMenuProps = {
 
 export type PopupMenuItem = {
   /**
+   * An optional className to apply to the item
+   */
+  className?: string
+  /**
    * An optional icon to display with the menu item
    */
-  icon?: object
+  icon?: React.ReactNode | Element
   /**
    * An optional className to apply to the icon
    */
@@ -37,5 +41,5 @@ export type PopupMenuItem = {
   /**
    * The text of the menu item
    */
-  text: string
+  text: string | React.ReactNode | Element
 }
