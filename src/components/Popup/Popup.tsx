@@ -181,6 +181,22 @@ export const Popup = ({
     return () => {}
   }, [isVisible, watchScroll, anchorRef])
 
+  // Set up key listeners
+  useEffect(() => {
+    if (isVisible) {
+      const escapeListener = (e: KeyboardEvent) => {
+        if (e.code === 'Escape') {
+          handleClose()
+        }
+      }
+
+      window.addEventListener('keydown', escapeListener)
+
+      return () => window.removeEventListener('keydown', escapeListener)
+    }
+    return () => {}
+  }, [isVisible])
+
   const transitions = useTransition(isVisible, null, {
     from: {
       transform: `scale(0)`,
