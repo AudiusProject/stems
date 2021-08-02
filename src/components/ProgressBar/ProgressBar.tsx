@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react'
 
+import BN from 'bn.js'
 import cn from 'classnames'
 
-import styles from './ProgressBar.module.css'
-import { ProgressBarProps } from './types'
+import { clampBN } from 'utils/bnHelpers'
 
-const clamp = (value: number, min: number, max: number): number =>
-  Math.min(Math.max(value, min), max)
+import styles from './ProgressBar.module.css'
+import { ProgressBarProps, ProgressValue } from './types'
+
+const getBN = (num: ProgressValue): BN => {
+  if (num instanceof BN) return num
+  return new BN(num)
+}
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({
   className,
   sliderClassName,
   sliderBarClassName,
-  min = 0,
-  max = 1,
+  min = new BN(0),
+  max = new BN(100),
   value,
   showLabels = false,
   minWrapper: MinWrapper,
@@ -22,8 +27,15 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   const [sliderWidth, setSliderWidth] = useState(0)
 
   useEffect(() => {
-    const percentage = (clamp(value - min, 0, max) * 100) / (max - min)
-    setSliderWidth(percentage)
+    const minBN = getBN(min)
+    const maxBN = getBN(max)
+    const valBN = getBN(value)
+
+    const percentage = clampBN(valBN.sub(minBN), new BN(0), maxBN)
+      .mul(new BN(100))
+      .div(maxBN.sub(minBN))
+
+    setSliderWidth(percentage.toNumber())
   }, [value, max, min])
 
   return (
