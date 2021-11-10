@@ -136,11 +136,6 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
     [anchorRef, wrapperRef]
   )
 
-  useEffect(() => {
-    if (isVisible) {
-    }
-  }, [isVisible, setComputedPosition, position, anchorRef, wrapperRef])
-
   // On visible, set the position
   useEffect(() => {
     if (isVisible) {

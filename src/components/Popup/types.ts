@@ -1,4 +1,4 @@
-import React, { MutableRefObject } from 'react'
+import { MutableRefObject, ReactChild } from 'react'
 
 export enum Position {
   TOP_LEFT = 'topLeft',
@@ -30,7 +30,19 @@ export type PopupProps = {
   /**
    * Children to render inside the Popup
    */
-  children: React.ReactChild
+  children: ReactChild
+
+  /**
+   * Class name to apply to the popup itself
+   */
+  className?: string
+
+  /**
+   * An optional container ref that controls what the popup considers
+   * to be the size of the container it belongs to. If the popup expands outside
+   * the bounds of the container, it repositions itself.
+   */
+  containerRef?: MutableRefObject<HTMLDivElement | null>
 
   /**
    * Boolean representing whether the Popup is visible
@@ -63,11 +75,6 @@ export type PopupProps = {
   title?: string
 
   /**
-   * Class name to apply to the popup itself
-   */
-  className?: string
-
-  /**
    * An optional className to apply to the wrapper element.
    * The wrapper element is used to absolutely position the popup on the page in relation to the anchor element
    */
@@ -77,13 +84,6 @@ export type PopupProps = {
    * An optional z-index to override the default of 10000
    */
   zIndex?: number
-
-  /**
-   * An optional container ref that controls what the popup considers
-   * to be the size of the container it belongs to. If the popup expands outside
-   * the bounds of the container, it repositions itself.
-   */
-  containerRef?: MutableRefObject<HTMLDivElement | null>
 }
 
 export const popupDefaultProps = {
