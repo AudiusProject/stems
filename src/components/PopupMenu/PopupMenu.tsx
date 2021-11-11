@@ -16,7 +16,7 @@ export const PopupMenu = forwardRef<HTMLDivElement, PopupMenuProps>(
     ref
   ) {
     const clickInsideRef = useRef<any>()
-    const anchorRef = useRef<HTMLElement>()
+    const anchorRef = useRef<HTMLDivElement>()
 
     const [isPopupVisible, setIsPopupVisible] = useState<boolean>(false)
 
