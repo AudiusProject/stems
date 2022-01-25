@@ -52,13 +52,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { textIsHidden } = useCollapsibleText(widthToHideText)
     const disabled = disabledProp ?? isDisabled
     const isTextVisible = !!text && !textIsHidden
-    const noText = !isTextVisible
 
     const renderLeftIcon = () =>
       leftIcon && (
         <span
           className={cn(iconClassName, styles.icon, styles.left, {
-            [styles.noText]: noText
+            [styles.noText]: !isTextVisible
           })}
         >
           {leftIcon}
@@ -69,7 +68,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       rightIcon && (
         <span
           className={cn(iconClassName, styles.icon, styles.right, {
-            [styles.noText]: noText
+            [styles.noText]: !isTextVisible
           })}
         >
           {rightIcon}
