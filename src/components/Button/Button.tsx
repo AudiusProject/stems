@@ -51,8 +51,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) {
     const { textIsHidden } = useCollapsibleText(widthToHideText)
     const disabled = disabledProp ?? isDisabled
-    const noText = !text || textIsHidden
-    const hasText = !!text && !textIsHidden
+    const isTextVisible = !!text && !textIsHidden
+    const noText = !isTextVisible
 
     const renderLeftIcon = () =>
       leftIcon && (
@@ -78,12 +78,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const getAriaLabel = () => {
       if (ariaLabelProp) return ariaLabelProp
-      else if (hasText && typeof text === 'string') return text
+      else if (textIsHidden && typeof text === 'string') return text
       return undefined
     }
 
     const renderText = () =>
-      hasText && (
+      isTextVisible && (
         <span className={cn(styles.textLabel, textClassName)}>{text}</span>
       )
 
@@ -105,7 +105,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={buttonType}
         ref={ref}
         style={{
-          minWidth: minWidth && hasText ? `${minWidth}px` : 'unset'
+          minWidth: minWidth && isTextVisible ? `${minWidth}px` : 'unset'
         }}
         {...other}
       >
