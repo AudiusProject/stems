@@ -77,6 +77,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const getAriaLabel = () => {
       if (ariaLabelProp) return ariaLabelProp
+      // Use the text prop as the aria-label if the text becomes hidden
+      // and no aria-label was provided to keep the button accessible.
       else if (textIsHidden && typeof text === 'string') return text
       return undefined
     }
