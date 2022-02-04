@@ -222,13 +222,9 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
 
   const [height, setHeight] = useState(window.innerHeight)
   useEffect(() => {
-    const onResize = () => {
-      setHeight(window.innerHeight)
-    }
+    const onResize = () => setHeight(window.innerHeight)
     window.addEventListener('resize', onResize)
-    return () => {
-      window.removeEventListener('resize', onResize)
-    }
+    return window.removeEventListener('resize', onResize)
   }, [setHeight])
 
   const bodyOffset = getOffset(anchor, verticalAnchorOffset)
