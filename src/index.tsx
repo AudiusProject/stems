@@ -24,7 +24,13 @@ export {
 } from './components/PopupMenu'
 export { ProgressBar, ProgressBarProps } from './components/ProgressBar'
 export { Scrubber } from './components/Scrubber'
-export { TabSlider, TabSliderProps, Option } from './components/TabSlider'
+export {
+  SegmentedControl,
+  SegmentedControl as TabSlider,
+  SegmentedControlProps,
+  SegmentedControlProps as TabSliderProps,
+  Option
+} from './components/SegmentedControl'
 export {
   TokenValueSlider,
   TokenValueSliderProps
