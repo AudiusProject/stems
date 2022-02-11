@@ -11,7 +11,7 @@ export default {
 
 const exclusions = new Set(['BgWaveSmall', 'BgWaveLarge'])
 
-const Template: Story<SVGAttributes<SVGElement>> = args => {
+export const All: Story<SVGAttributes<SVGElement>> = args => {
   return (
     <>
       <p>
@@ -43,4 +43,11 @@ const Template: Story<SVGAttributes<SVGElement>> = args => {
   )
 }
 
-export const All = Template.bind({})
+All.parameters = {
+  docs: {
+    source: {
+      code: `// Usage:\n// import { ICON_NAME_HERE } from '@audius/stems'\nimport { IconAlbum } from '@audius/stems'\n\n// Rendering the svg element:\n<IconAlbum />
+      `
+    }
+  }
+}
