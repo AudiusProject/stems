@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
 export enum Anchor {
   CENTER = 'CENTER',
@@ -36,6 +36,8 @@ export type ModalProps = {
   showTitleHeader?: boolean
   title?: React.ReactNode
   subtitle?: string
+  headerIcon?: React.ReactNode
+  headerIconClassName?: string
 
   /**
    * Whether to dismiss on a click outside the modal

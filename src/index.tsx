@@ -12,6 +12,8 @@ export {
   Size as ButtonSize
 } from './components/Button'
 export { Modal, ModalProps, Anchor } from './components/Modal'
+export { ModalContent, ModalContentProps } from './components/ModalContent'
+
 export {
   Popup,
   Position as PopupPosition,

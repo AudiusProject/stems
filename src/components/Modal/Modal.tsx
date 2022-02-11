@@ -101,6 +101,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
     subtitleClassName,
     headerContainerClassName,
     anchor = Anchor.CENTER,
+    headerIcon,
+    headerIconClassName,
     subtitle,
     verticalAnchorOffset = 0,
     horizontalPadding = 8,
@@ -270,6 +272,16 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
                               id={titleId}
                               className={cn(styles.header, titleClassName)}
                             >
+                              {headerIcon && (
+                                <div
+                                  className={cn(
+                                    styles.headerIcon,
+                                    headerIconClassName
+                                  )}
+                                >
+                                  {headerIcon}
+                                </div>
+                              )}
                               {title}
                             </div>
                             <div
