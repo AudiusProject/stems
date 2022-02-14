@@ -30,14 +30,17 @@ export type ModalProps = {
   isOpen: boolean
 
   /**
-   * Whether to render a header
-   * with a title and dismiss button
+   * @deprecated in favor of composability - use ModalHeader sub-component instead.
    */
   showTitleHeader?: boolean
+  /**
+   * @deprecated in favor of composability - use ModalHeader sub-component instead.
+   */
   title?: React.ReactNode
+  /**
+   * @deprecated in favor of composability - use ModalHeader sub-component instead.
+   */
   subtitle?: string
-  headerIcon?: React.ReactNode
-  headerIconClassName?: string
 
   /**
    * Whether to dismiss on a click outside the modal
@@ -45,7 +48,7 @@ export type ModalProps = {
   dismissOnClickOutside?: boolean
 
   /**
-   * Whether to show a dismiss 'X' in the top left
+   * @deprecated in favor of composability - use ModalHeader sub-component instead.
    */
   showDismissButton?: boolean
 
@@ -70,8 +73,18 @@ export type ModalProps = {
    *  Set max-width on bodyClass to set the modal width
    */
   bodyClassName?: string
+
+  /**
+   * @deprecated in favor of composability - use ModalHeader sub-component instead.
+   */
   titleClassName?: string
+  /**
+   * @deprecated in favor of composability - use ModalHeader sub-component instead.
+   */
   subtitleClassName?: string
+  /**
+   * @deprecated in favor of composability - use ModalHeader sub-component instead.
+   */
   headerContainerClassName?: string
 
   anchor?: Anchor
@@ -83,7 +96,23 @@ export type ModalProps = {
   horizontalPadding?: number
 
   /**
-   * Horizontal padding between outside of modal and inner content
+   * @deprecated in favor of composability - use ModalContent sub-component instead
    */
   contentHorizontalPadding?: number
+}
+
+export type ModalContentProps = React.HTMLAttributes<HTMLDivElement>
+
+export type ModalHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
+  showDismissButton?: boolean
+  onClose?: () => void
+  children: React.ReactNode
+}
+
+export type ModalTitleProps = React.HTMLAttributes<HTMLDivElement> & {
+  subtitleClassName?: string
+  icon?: React.ReactNode
+  iconClassName?: string
+  title: React.ReactNode
+  subtitle?: React.ReactNode
 }

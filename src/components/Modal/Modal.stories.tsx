@@ -4,9 +4,10 @@ import { Story } from '@storybook/react'
 
 import { Button } from 'components/Button'
 import { IconPlaylists } from 'components/Icons'
-import { ModalContent } from 'components/ModalContent/ModalContent'
 
 import { Modal } from './Modal'
+import { ModalContent } from './ModalContent'
+import { ModalHeader, ModalTitle } from './ModalHeader'
 import { ModalProps } from './types'
 
 export default {
@@ -108,51 +109,29 @@ const LongContent = () => (
 
 LotsOfContent.args = {
   children: <LongContent />,
-  contentHorizontalPadding: 16,
   allowScroll: true
-}
-
-export const WithHeader = Template.bind({})
-
-WithHeader.args = {
-  showDismissButton: true,
-  showTitleHeader: true,
-  title: 'Modal with a title',
-  contentHorizontalPadding: 16,
-  subtitle: 'This is the subtitle',
-  allowScroll: true,
-  children: <LongContent />
-}
-
-export const WithHeaderIcon = Template.bind({})
-
-WithHeaderIcon.args = {
-  showDismissButton: true,
-  showTitleHeader: true,
-  title: 'Modal with a title',
-  headerIcon: <IconPlaylists />,
-  contentHorizontalPadding: 16,
-  subtitle: 'This is the subtitle',
-  allowScroll: true,
-  children: <LongContent />
 }
 
 export const Composed = Template.bind({})
 
 Composed.args = {
-  showDismissButton: true,
-  showTitleHeader: true,
-  title: 'Modal with a title',
-  headerIcon: <IconPlaylists />,
-  subtitle: 'This is the subtitle',
   allowScroll: true,
   children: (
-    <ModalContent>
-      <p style={{ display: 'inline' }}>This is a ModalContent component.</p>
-      <p>
-        This is some extra text to make this example longer. And here&apos;s
-        another sentence.
-      </p>
-    </ModalContent>
+    <>
+      <ModalHeader>
+        <ModalTitle
+          icon={<IconPlaylists />}
+          title='Example modal'
+          subtitle='This is a ModalTitle component inside a ModalHeader component!'
+        />
+      </ModalHeader>
+      <ModalContent>
+        <p style={{ display: 'inline' }}>This is a ModalContent component.</p>
+        <p>
+          This is some extra text to make this example longer. And here&apos;s
+          another sentence.
+        </p>
+      </ModalContent>
+    </>
   )
 }

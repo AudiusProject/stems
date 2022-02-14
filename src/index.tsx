@@ -11,8 +11,17 @@ export {
   Type as ButtonType,
   Size as ButtonSize
 } from './components/Button'
-export { Modal, ModalProps, Anchor } from './components/Modal'
-export { ModalContent, ModalContentProps } from './components/ModalContent'
+export {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalTitle,
+  ModalProps,
+  ModalContentProps,
+  ModalHeaderProps,
+  ModalTitleProps,
+  Anchor
+} from './components/Modal'
 
 export {
   Popup,

@@ -2,11 +2,11 @@ import React from 'react'
 
 import { Story } from '@storybook/react'
 
-import { ModalContent, ModalContentProps } from 'components/ModalContent'
+import { ModalContent, ModalContentProps } from './'
 
 export default {
   component: ModalContent,
-  title: 'Components/ModalContent'
+  title: 'Components/Modal/ModalContent'
 }
 
 const Template: Story<ModalContentProps> = ({

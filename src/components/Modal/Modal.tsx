@@ -101,8 +101,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
     subtitleClassName,
     headerContainerClassName,
     anchor = Anchor.CENTER,
-    headerIcon,
-    headerIconClassName,
     subtitle,
     verticalAnchorOffset = 0,
     horizontalPadding = 8,
@@ -116,6 +114,19 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
   },
   ref
 ) {
+  if (
+    subtitle ||
+    title ||
+    showTitleHeader ||
+    titleClassName ||
+    subtitleClassName ||
+    headerContainerClassName ||
+    showDismissButton
+  ) {
+    console.warn(
+      'Header and title-related props of `Modal` have been deprecated. Use the `ModalHeader` sub-component instead.'
+    )
+  }
   const id = useMemo(() => modalKey || uniqueId('modal-'), [modalKey])
   const titleId = `${id}-title`
   const subtitleId = `${id}-subtitle`
@@ -208,10 +219,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
     paddingRight: `${horizontalPadding}px`
   }
 
+  /** Begin @deprecated section (favor using ModalContent sub-component)  */
   const bodyStyle = {
     paddingLeft: `${contentHorizontalPadding}px`,
     paddingRight: `${contentHorizontalPadding}px`
   }
+  /** End @deprecated section  */
 
   const bodyClassNames = cn(styles.body, {
     [styles.noScroll!]: !allowScroll,
@@ -258,6 +271,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
                       aria-describedby={subtitleId}
                     >
                       <>
+                        {/** Begin @deprecated section (moved to ModalHeader and ModalTitle sub-components)  */}
                         {showTitleHeader && (
                           <div className={headerContainerClassNames}>
                             {showDismissButton && (
@@ -272,16 +286,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
                               id={titleId}
                               className={cn(styles.header, titleClassName)}
                             >
-                              {headerIcon && (
-                                <div
-                                  className={cn(
-                                    styles.headerIcon,
-                                    headerIconClassName
-                                  )}
-                                >
-                                  {headerIcon}
-                                </div>
-                              )}
                               {title}
                             </div>
                             <div
@@ -292,6 +296,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
                             </div>
                           </div>
                         )}
+                        {/** End @deprecated section  */}
+
                         {children}
                       </>
                     </animated.div>
