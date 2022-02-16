@@ -30,8 +30,30 @@ const Template: Story<ModalProps> = ({
   )
 }
 
-export const Base = Template.bind({})
-export const LotsOfContent = Template.bind({})
+export const Composed = Template.bind({})
+
+Composed.args = {
+  allowScroll: true,
+  children: (
+    <>
+      <ModalHeader>
+        <ModalTitle
+          icon={<IconPlaylists />}
+          title='Example modal'
+          subtitle='This is a ModalTitle component inside a ModalHeader component!'
+        />
+      </ModalHeader>
+      <ModalContent>
+        <p style={{ display: 'inline' }}>This is a ModalContent component.</p>
+        <p>
+          This is some extra text to make this example longer. And here&apos;s
+          another sentence.
+        </p>
+      </ModalContent>
+    </>
+  )
+}
+
 const LongContent = () => (
   <div>
     <p>
@@ -106,32 +128,19 @@ const LongContent = () => (
     </p>
   </div>
 )
-
+export const LotsOfContent = Template.bind({})
 LotsOfContent.args = {
-  children: <LongContent />,
-  allowScroll: true
-}
-
-export const Composed = Template.bind({})
-
-Composed.args = {
-  allowScroll: true,
   children: (
     <>
       <ModalHeader>
-        <ModalTitle
-          icon={<IconPlaylists />}
-          title='Example modal'
-          subtitle='This is a ModalTitle component inside a ModalHeader component!'
-        />
+        <ModalTitle title='A lot of content' />
       </ModalHeader>
       <ModalContent>
-        <p style={{ display: 'inline' }}>This is a ModalContent component.</p>
-        <p>
-          This is some extra text to make this example longer. And here&apos;s
-          another sentence.
-        </p>
+        <LongContent />
       </ModalContent>
     </>
-  )
+  ),
+  allowScroll: true
 }
+
+export const Base = Template.bind({})

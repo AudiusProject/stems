@@ -22,24 +22,34 @@
   fill: var(--neutral-light-4);
 }
 
-.title {
+.titleContainer {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-l);
-  font-weight: var(--font-bold);
-  color: var(--neutral);
   margin: 0px 16px 0px;
   white-space: nowrap;
 }
 
+.title {
+  margin: 0;
+  display: inline;
+  font-size: var(--font-l);
+  font-weight: var(--font-bold);
+  color: var(--neutral);
+}
+
+.subtitleContainer {
+  text-align: center;
+  line-height: 18px;
+}
+
 .subtitle {
+  margin: 0;
+  display: inline;
   font-size: var(--font-s);
   font-weight: var(--font-medium);
   color: var(--neutral-light-4);
-  text-align: center;
-  line-height: 18px;
 }
 
 .icon {

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { HTMLAttributes, ReactNode } from 'react'
 
 export enum Anchor {
   CENTER = 'CENTER',
@@ -99,20 +99,34 @@ export type ModalProps = {
    * @deprecated in favor of composability - use ModalContent sub-component instead
    */
   contentHorizontalPadding?: number
+
+  /**
+   * Optional aria description for the dialog.
+   * If not provided, it is auto-generated.
+   */
+  'aria-describedby'?: string
+
+  /**
+   * Optional aria label for the dialog.
+   * If not provided, it is auto-generated.
+   */
+  'aria-labelledby'?: string
 }
 
-export type ModalContentProps = React.HTMLAttributes<HTMLDivElement>
+export type ModalContentProps = HTMLAttributes<HTMLDivElement>
 
-export type ModalHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
+export type ModalHeaderProps = HTMLAttributes<HTMLDivElement> & {
   showDismissButton?: boolean
   onClose?: () => void
   children: React.ReactNode
 }
 
-export type ModalTitleProps = React.HTMLAttributes<HTMLDivElement> & {
+export type ModalTitleProps = HTMLAttributes<HTMLDivElement> & {
   subtitleClassName?: string
   icon?: React.ReactNode
   iconClassName?: string
   title: React.ReactNode
   subtitle?: React.ReactNode
+  titleId?: string
+  subtitleId?: string
 }

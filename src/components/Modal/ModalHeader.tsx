@@ -4,6 +4,7 @@ import cn from 'classnames'
 
 import { IconRemove } from 'components/Icons'
 
+import { ModalContext } from './ModalContext'
 import styles from './ModalHeader.module.css'
 import { ModalHeaderProps, ModalTitleProps } from './types'
 
@@ -21,11 +22,12 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
         ref={ref}
         {...props}
       >
-        {showDismissButton && (
+        {/* TODO(AUD-1561): Make into an accessible button element.  */}
+        {showDismissButton ? (
           <div className={styles.dismissButton} onClick={onClose}>
             <IconRemove />
           </div>
-        )}
+        ) : null}
         {children}
       </div>
     )
@@ -36,21 +38,38 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
  * Title component to be used inside modal headers
  */
 export const ModalTitle = forwardRef<HTMLDivElement, ModalTitleProps>(
-  function ModalHeader(
-    { subtitleClassName, icon, iconClassName, title, subtitle, ...props },
+  function ModalTitle(
+    {
+      subtitleClassName,
+      icon,
+      iconClassName,
+      title,
+      subtitle,
+      titleId: titleIdProp,
+      subtitleId: subtitleIdProp,
+      ...props
+    },
     ref
   ) {
+    const modalContext = React.useContext(ModalContext)
+    const titleId = titleIdProp || modalContext.titleId
+    const subtitleId = subtitleIdProp || modalContext.subtitleId
+
     return (
       <>
-        <div className={styles.title} {...props} ref={ref}>
+        <div className={styles.titleContainer} {...props} ref={ref}>
           {icon == null ? null : (
             <div className={cn(styles.icon, iconClassName)}>{icon}</div>
           )}
-          {title}
+          <h2 id={titleId} className={styles.title}>
+            {title}
+          </h2>
         </div>
         {subtitle == null ? null : (
-          <div className={cn(styles.subtitle, subtitleClassName)}>
-            {subtitle}
+          <div className={cn(styles.subtitleContainer, subtitleClassName)}>
+            <h3 id={subtitleId} className={styles.subtitle}>
+              {subtitle}
+            </h3>
           </div>
         )}
       </>
