@@ -114,19 +114,29 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
   },
   ref
 ) {
-  if (
-    subtitle ||
-    title ||
-    showTitleHeader ||
-    titleClassName ||
-    subtitleClassName ||
-    headerContainerClassName ||
-    showDismissButton
-  ) {
-    console.warn(
-      'Header and title-related props of `Modal` have been deprecated. Use the `ModalHeader` sub-component instead.'
-    )
-  }
+  useEffect(() => {
+    if (
+      subtitle ||
+      title ||
+      showTitleHeader ||
+      titleClassName ||
+      subtitleClassName ||
+      headerContainerClassName ||
+      showDismissButton
+    ) {
+      console.warn(
+        'Header and title-related props of `Modal` have been deprecated. Use the `ModalHeader` sub-component instead.'
+      )
+    }
+  }, [
+    headerContainerClassName,
+    showDismissButton,
+    showTitleHeader,
+    subtitle,
+    subtitleClassName,
+    title,
+    titleClassName
+  ])
   const id = useMemo(() => modalKey || uniqueId('modal-'), [modalKey])
   const titleId = `${id}-title`
   const subtitleId = `${id}-subtitle`

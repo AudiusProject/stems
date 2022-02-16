@@ -5,16 +5,17 @@
 .headerContainer {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid var(--neutral-light-6);
-  padding: var(--unit-6) 0px;
+  border-bottom: 1px solid var(--neutral-light-8);
+  padding: var(--unit-6) 0;
+  margin: 0 var(--unit-6);
 }
 
 .dismissButton {
   z-index: 1;
   position: absolute;
   cursor: pointer;
-  left: 16px;
-  top: 16px;
+  left: calc(var(--unit-6) - 8px);
+  top: calc(var(--unit-6) - 8px);
 }
 
 .dismissButton path {
