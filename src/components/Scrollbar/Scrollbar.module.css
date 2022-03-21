@@ -1,4 +1,4 @@
-@import 'react-perfect-scrollbar/dist/css/styles.css';
+@import '~react-perfect-scrollbar/dist/css/styles.css';
 
 .scrollbar {
   height: 100%;
