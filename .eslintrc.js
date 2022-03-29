@@ -3,7 +3,15 @@ module.exports = {
     browser: true,
     es6: true
   },
-  extends: ["standard", "plugin:@typescript-eslint/recommended", "plugin:jest/recommended", "plugin:react/recommended", "prettier/react", "prettier-standard/prettier-file", "plugin:storybook/recommended"],
+  extends: [
+    'standard',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:jest/recommended',
+    'plugin:react/recommended',
+    'prettier/react',
+    'prettier-standard/prettier-file',
+    'plugin:storybook/recommended'
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
@@ -23,7 +31,12 @@ module.exports = {
       // We are using the typescript baseUrl to do absolute import paths
       // relative to /src, which eslint can't tell apart from 3rd party deps
       alias: {
-        map: [['assets', './src/assets'], ['components', './src/components'], ['hooks', './src/hooks'], ['utils', './src/utils']],
+        map: [
+          ['assets', './src/assets'],
+          ['components', './src/components'],
+          ['hooks', './src/hooks'],
+          ['utils', './src/utils']
+        ],
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
       }
     }
@@ -58,25 +71,39 @@ module.exports = {
     'prettier/prettier': 'error',
     'space-before-function-paren': 'off',
     'generator-star-spacing': 'off',
-    'import/order': ['error', {
-      alphabetize: {
-        order: 'asc'
-      },
-      groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-      'newlines-between': 'always',
-      pathGroups: [{
-        pattern: 'react',
-        group: 'builtin',
-        position: 'before'
-      }],
-      pathGroupsExcludedImportTypes: ['builtin']
-    }],
+    'import/order': [
+      'error',
+      {
+        alphabetize: {
+          order: 'asc'
+        },
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index'
+        ],
+        'newlines-between': 'always',
+        pathGroups: [
+          {
+            pattern: 'react',
+            group: 'builtin',
+            position: 'before'
+          }
+        ],
+        pathGroupsExcludedImportTypes: ['builtin']
+      }
+    ],
     'import/no-default-export': 'error'
   },
-  overrides: [{
-    files: ['src/**/*.d.ts', 'src/**/*.stories.tsx'],
-    rules: {
-      'import/no-default-export': 'off'
+  overrides: [
+    {
+      files: ['src/**/*.d.ts', 'src/**/*.stories.tsx'],
+      rules: {
+        'import/no-default-export': 'off'
+      }
     }
-  }]
-};
+  ]
+}
