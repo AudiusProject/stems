@@ -18,26 +18,26 @@
 
 /* Cancel the default of perfect scroll, which always shows the scrollbar when hovering over container. Our desired behavior is to
 only show the scrollbar for ~1s, then fade away if not scrolling. */
-:global(.ps:hover > .ps__rail-y),
-:global(.ps:hover > .ps__rail-x) {
+:global(.ps:hover).scrollbar > :global(.ps__rail-y),
+:global(.ps:hover).scrollbar > :global(.ps__rail-x) {
   opacity: 0;
 }
 
-:global(.scrollbar--hovered-visible):not(:global(.ps--scrolling-y))
+:global(.scrollbar--hovered-visible).scrollbar:not(:global(.ps--scrolling-y))
   > :global(.ps__rail-y),
-:global(.scrollbar--hovered-visible):not(:global(.ps--scrolling-x))
+:global(.scrollbar--hovered-visible).scrollbar:not(:global(.ps--scrolling-x))
   > :global(.ps__rail-x) {
   opacity: 0.6;
 }
 
-:global(.ps--focus > .ps__rail-x),
-:global(.ps--focus > .ps__rail-y),
-:global(.ps--scrolling-x > .ps__rail-x),
-:global(.ps--scrolling-y > .ps__rail-y) {
+:global(.ps--focus).scrollbar > :global(.ps__rail-x),
+:global(.ps--focus).scrollbar > :global(.ps__rail-y),
+:global(.ps--scrolling-x).scrollbar > :global(.ps__rail-x),
+:global(.ps--scrolling-y).scrollbar > :global(.ps__rail-y) {
   opacity: 0.6 !important;
 }
 
-:global(.ps__rail-y:hover),
-:global(.ps__rail-x:hover) {
+.scrollbar > :global(.ps__rail-y):hover,
+.scrollbar > :global(.ps__rail-x):hover {
   opacity: 0.9 !important;
 }
