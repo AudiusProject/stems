@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useRef, useMemo } from 'react'
 
 import { ResizeObserver } from '@juggle/resize-observer'
 import cn from 'classnames'
+import { uniqueId } from 'lodash'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import useMeasure from 'react-use-measure'
 
@@ -20,8 +21,52 @@ export const Scrollbar = ({
   ...props
 }: ScrollbarProps) => {
   const [ref] = useMeasure({ polyfill: ResizeObserver })
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const id = useMemo(() => uniqueId('scrollbar-'), [])
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        clearTimeout(timerRef.current)
+      }
+    }
+  }, [])
+
+  const hideScrollbar = () => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.classList.remove('scrollbar--hovered-visible')
+    }
+    if (timerRef.current !== null) {
+      clearTimeout(timerRef.current)
+    }
+  }
+
+  const showScrollbar = () => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.classList.add('scrollbar--hovered-visible')
+    }
+    if (timerRef.current !== null) {
+      clearTimeout(timerRef.current)
+    }
+    timerRef.current = setTimeout(() => {
+      const element = document.getElementById(id)
+      if (element) {
+        element.classList.remove('scrollbar--hovered-visible')
+      }
+    }, 1400)
+  }
+
   return (
-    <PerfectScrollbar {...props} className={cn(styles.scrollbar, className)}>
+    <PerfectScrollbar
+      {...props}
+      id={id}
+      className={cn(styles.scrollbar, className)}
+      onMouseEnter={showScrollbar}
+      onMouseLeave={hideScrollbar}
+    >
       <div ref={ref}>{children}</div>
     </PerfectScrollbar>
   )
