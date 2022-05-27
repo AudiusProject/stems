@@ -28,7 +28,6 @@ export const Scrollbar = ({
   useEffect(() => {
     return () => {
       if (timerRef.current !== null) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         clearTimeout(timerRef.current)
       }
     }
