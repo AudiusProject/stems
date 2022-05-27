@@ -13,6 +13,7 @@
 .scrollbar :global(.ps__rail-y) {
   margin-top: var(--unit);
   margin-bottom: var(--unit);
+  transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
 /* Cancel the default of perfect scroll, which always shows the scrollbar when hovering over container. Our desired behavior is to
