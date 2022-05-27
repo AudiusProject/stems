@@ -18,11 +18,12 @@ import { ScrollbarProps } from './types'
 export const Scrollbar = ({
   children,
   className,
+  id,
   ...props
 }: ScrollbarProps) => {
   const [ref] = useMeasure({ polyfill: ResizeObserver })
   const timerRef = useRef<NodeJS.Timeout | null>(null)
-  const id = useMemo(() => uniqueId('scrollbar-'), [])
+  const elementId = useMemo(() => id || uniqueId('scrollbar-'), [id])
 
   useEffect(() => {
     return () => {
@@ -34,7 +35,7 @@ export const Scrollbar = ({
   }, [])
 
   const hideScrollbar = () => {
-    const element = document.getElementById(id)
+    const element = document.getElementById(elementId)
     if (element) {
       element.classList.remove('scrollbar--hovered-visible')
     }
@@ -44,7 +45,7 @@ export const Scrollbar = ({
   }
 
   const showScrollbar = () => {
-    const element = document.getElementById(id)
+    const element = document.getElementById(elementId)
     if (element) {
       element.classList.add('scrollbar--hovered-visible')
     }
@@ -52,7 +53,7 @@ export const Scrollbar = ({
       clearTimeout(timerRef.current)
     }
     timerRef.current = setTimeout(() => {
-      const element = document.getElementById(id)
+      const element = document.getElementById(elementId)
       if (element) {
         element.classList.remove('scrollbar--hovered-visible')
       }
@@ -62,7 +63,7 @@ export const Scrollbar = ({
   return (
     <PerfectScrollbar
       {...props}
-      id={id}
+      id={elementId}
       className={cn(styles.scrollbar, className)}
       onMouseEnter={showScrollbar}
       onMouseLeave={hideScrollbar}
