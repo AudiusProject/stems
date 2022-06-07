@@ -209,12 +209,14 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
     (e: EventTarget) => {
       if (e instanceof Element) {
         const modalElement = findAncestor(e, `.${wrapperClass}`)
-        if (!modalElement) return false
+        if (!modalElement) {
+          return !isOpen
+        }
         const isModalWrapper = modalElement.classList.contains(wrapperClass)
         const isThisModalWrapper = modalElement.classList.contains(
           `${wrapperClass}-${id}`
         )
-        return isModalWrapper && !isThisModalWrapper
+        return isModalWrapper && !isThisModalWrapper && !isOpen
       }
       return false
     }
